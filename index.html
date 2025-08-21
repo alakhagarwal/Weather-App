@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather App</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <div class="heading">
+          <h1>Generic Weather App<sup>TM</sup></h1>
+          <form id="weatherForm-header">
+            <input
+              type="text"
+              id="cityInput2"
+              placeholder="City, Country"
+              required
+            />
+            <div class="temp-toggle">
+              <input
+                type="radio"
+                id="celsius"
+                name="temperature2"
+                value="C"
+                checked
+              />
+              <label for="celsius">°C</label>
+              <input
+                type="radio"
+                id="fahrenheit"
+                name="temperature2"
+                value="F"
+              />
+              <label for="fahrenheit">°F</label>
+            </div>
+
+            <button type="submit">Get Weather</button>
+          </form>
+        </div>
+      </div>
+    </header>
+
+    <div class="container">
+      <main>
+        <form id="weatherForm">
+          <div class="row1">
+            <input
+              type="text"
+              id="cityInput"
+              placeholder="City, Country"
+              required
+            />
+            <div class="temp-toggle">
+              <input
+                type="radio"
+                id="celsius"
+                name="temperature"
+                value="C"
+                checked
+              />
+              <label for="celsius">°C</label>
+              <input
+                type="radio"
+                id="fahrenheit"
+                name="temperature"
+                value="F"
+              />
+              <label for="fahrenheit">°F</label>
+            </div>
+          </div>
+          <button type="submit">Get Weather</button>
+        </form>
+
+        <div id="weatherDisplay">
+          <div class="current-info">
+            <div class="details">
+              <div class="city-time">
+                <h1 class="cityName">Bareilly</h1>
+                <p class="currTime">11:30 AM</p>
+              </div>
+
+              <div class="detailsRow1">
+                <h2 class="sky">Cloudy</h2>
+                <img class="skyIcon" src="" alt="" />
+                <h2 class="temp">32</h2>
+              </div>
+
+              <div class="detailsRow2">
+                <div class="wind">
+                  <img class="row2Icons" src="assets/wind.gif" alt="" />
+                  <p>Wind</p>
+                  <h4>15.8km/h</h4>
+                </div>
+
+                <div class="wind">
+                  <img class="row2Icons" src="assets/humidity.gif" alt="" />
+                  <p>humidity</p>
+                  <h4>15.8km/h</h4>
+                </div>
+
+                <div class="wind">
+                  <img
+                    class="row2Icons"
+                    src="assets/precipitation.gif"
+                    alt=""
+                  />
+                  <p>Precipitation</p>
+                  <h4>15.8km/h</h4>
+                </div>
+
+                <div class="wind">
+                  <img class="row2Icons" src="assets/thermometer.gif" alt="" />
+                  <p>temperature</p>
+                  <h4>15.8km/h</h4>
+                </div>
+              </div>
+            </div>
+
+            <div class="forecast">
+              <h2 style="padding-left: 10px; color: grey">Hourly forecast</h2>
+              <div class="hours-data">
+                <div class="hour">
+                  <p>13:00</p>
+                  <img class="forecastIcon" src="assets/rain.gif" alt="" />
+                  <h4>24</h4>
+                </div>
+
+                <div class="hour">
+                  <p>13:00</p>
+                  <img class="forecastIcon" src="assets/rain.gif" alt="" />
+                  <h4>24</h4>
+                </div>
+
+                <div class="hour">
+                  <p>13:00</p>
+                  <img class="forecastIcon" src="assets/rain.gif" alt="" />
+                  <h4>24</h4>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="days-forecast">
+            <div class="forecast-heading">
+              <h2>15 Days forecast</h2>
+            </div>
+            <div class="forecast-days">
+              <div class="day">
+                <p class="date">22 Aug</p>
+                <div class="temp-detail">
+                  <img class="dayIcon" src="assets/humidity.gif" alt="" />
+                  <h4 class="max-temp">33</h4>
+                  <p class="min-temp">22</p>
+                </div>
+              </div>
+
+              <div class="day">
+                <p class="date">22 Aug</p>
+                <div class="temp-detail">
+                  <img class="dayIcon" src="assets/humidity.gif" alt="" />
+                  <h4 class="max-temp">33</h4>
+                  <p class="min-temp">22</p>
+                </div>
+              </div>
+              <div class="day">
+                <p class="date">22 Aug</p>
+                <div class="temp-detail">
+                  <img class="dayIcon" src="assets/humidity.gif" alt="" />
+                  <h4 class="max-temp">33</h4>
+                  <p class="min-temp">22</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
