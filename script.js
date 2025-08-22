@@ -1,7 +1,7 @@
 const mainForm = document.querySelector("#weatherForm");
 const cityInput = document.querySelector("#cityInput");
 const temperatureRadios = document.querySelectorAll(
-  'input[name="temperature"]'
+  'input[name="temperature2"]'
 );
 const currInfo = document.querySelector(".current-info");
 const headerForm = document.querySelector("#weatherForm-header");
@@ -19,7 +19,7 @@ urls = {
   "clear-day": "assets/clear-day.gif",
 };
 
-selectedTemperature = "metric"; // Default temperature unit: metric (Celsius)
+let selectedTemperature = "metric"; // Default temperature unit: metric (Celsius)
 
 async function fetchWeatherData(cityName, temperature) {
   // Fetch weather data from an API (e.g., OpenWeatherMap) using the cityName and temperature.
@@ -85,8 +85,22 @@ function DisplayWeatherData(weatherData) {
   const skyIcon = document.querySelector(".skyIcon");
   const temp = document.querySelector(".temp");
 
+  let unit = "°C";
+
+
+  if(selectedTemperature=="metric")
+  {
+    unit = "°C";
+  }else
+  {
+    unit = "°F";
+  }
+
   Sky.textContent = weatherData.currentConditions["conditions"];
   skyIcon.setAttribute("src", urls[weatherData.currentConditions["icon"]]);
-  console.log("Icon from API:", weatherData.currentConditions["icon"]);
-  console.log("Mapped URL:", urls[weatherData.currentConditions["icon"]]);
+  temp.textContent = `${weatherData.currentConditions["temp"]}${unit}`;
+  // console.log("Icon from API:", weatherData.currentConditions["icon"]);
+  // console.log("Mapped URL:", urls[weatherData.currentConditions["icon"]]);
+
+
 }

@@ -41,7 +41,6 @@ header {
 .temp-toggle input[type="radio"] {
   position: absolute;
   opacity: 0;
-  pointer-events: none;
 }
 
 .temp-toggle {
@@ -70,9 +69,9 @@ header {
 }
 
 .temp-toggle input[type="radio"]:checked + label {
-  background: #4361ee;
-  color: white;
-  border-color: #4f46e5;
+  background: #4361ee !important;
+  color: white !important;
+  border-color: #4f46e5 !important;
 }
 
 /* So, whenever a radio button inside .temp-toggle is checked, the label right after it gets styled like a button highlight (indigo background, white text, indigo border). */
@@ -142,7 +141,7 @@ button:active {
   border: 2px solid black;
   flex: 1;
   padding: 15px;
-  transform: translateY(100%);
+  /* transform: translateY(100%); */
   transition: all 0.3s ease-in-out;
   opacity: 0;
 }
@@ -232,7 +231,7 @@ button:active {
   max-width: 400px;
   flex: 1;
   padding: 15px;
-  transform: translateY(100%);
+  /* transform: translateY(100%); */
   opacity: 0;
   transition: all 0.5s ease-in-out;
 }
@@ -280,6 +279,6 @@ button:active {
 }
 
 .show {
-  transform: translateY(0);
+  /* transform: translateY(0); */
   opacity: 1;
 }
