@@ -104,6 +104,7 @@ header {
   max-width: 800px;
   width: 100%;
   align-items: 0 auto;
+  margin: 10px 20px;
 }
 
 button {
@@ -139,6 +140,7 @@ button:active {
 
 .current-info {
   max-width: 750px;
+  width: 100%;
   flex: 1;
   padding: 25px;
   transform: translateY(100%);
@@ -238,7 +240,7 @@ button:active {
   padding: 25px;
   transform: translateY(100%);
   opacity: 0;
-  transition: all 0.5s ease-in-out;
+  transition: all 0.3s ease-in-out;
   overflow: auto;
   box-shadow: 0 0 14px rgba(0, 0, 0, 0.3);
   background-color: #f8f9fa;
@@ -290,4 +292,121 @@ button:active {
 .show {
   transform: translateY(0);
   opacity: 1;
+}
+
+@media (max-width: 1180px) {
+  #weatherDisplay {
+    flex-direction: column;
+    gap: 20px;
+    margin: 0 auto;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .current-info {
+    align-self: center;
+  }
+
+  .days-forecast {
+    max-width: 500px;
+    width: 100%;
+  }
+}
+
+@media (max-width: 1024px) {
+  /* .current-info,
+  .days-forecast {
+    max-width: 100%;
+    width: 100%;
+  } */
+  #weatherForm-header {
+    max-width: 100%;
+    width: 100%;
+  }
+  /* .row1 {
+    flex-direction: column;
+    max-width: 100%;
+  } */
+  #cityInput,
+  #cityInput2 {
+    margin-bottom: 10px;
+  }
+  #weatherForm {
+    margin-top: 10px;
+  }
+  .city-time {
+    margin-bottom: 10px;
+  }
+  .hours-data {
+    gap: 8px;
+  }
+  .forecast-days {
+    gap: 8px;
+  }
+  .day {
+    font-size: 1rem;
+    gap: 5px;
+  }
+  .day {
+    font-size: 0.9rem;
+    gap: 3px;
+  }
+  .dayIcon {
+    max-width: 24px;
+  }
+  .forecastIcon {
+    max-width: 40px;
+  }
+  .row2Icons {
+    max-width: 48px;
+  }
+  .temp-detail {
+    font-size: 1rem;
+  }
+  .min-temp {
+    font-size: 0.9rem;
+  }
+  .min-temp {
+    font-size: 0.8rem;
+  }
+  .show {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  #weatherDisplay {
+    flex-direction: column;
+  }
+
+  #cityInput{
+    width: 80vw;
+  }
+
+  /* .current-info,
+  .days-forecast {
+    max-width: 100%;
+    width: 100%;
+  } */
+
+  .detailsRow1 {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  #weatherForm-header {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .row1 {
+    flex-direction: column;
+    max-width: 100%;
+  }
+
+  .detailsRow2
+  {
+    max-width: 90%;
+  }
 }
