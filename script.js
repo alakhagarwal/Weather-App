@@ -3,9 +3,15 @@ const cityInput = document.querySelector("#cityInput");
 const temperatureRadios = document.querySelectorAll(
   'input[name="temperature2"]'
 );
+
+const temparatureRadiosHeader = document.querySelectorAll(
+  'input[name="temperature1"]'
+);
 const currInfo = document.querySelector(".current-info");
 const headerForm = document.querySelector("#weatherForm-header");
 const daysForecast = document.querySelector(".days-forecast");
+const daysDiv = document.querySelector(".forecast-days");
+const hoursDiv = document.querySelector(".hours-data");
 
 urls = {
   snow: "assets/snow.gif",
@@ -19,6 +25,65 @@ urls = {
   "clear-day": "assets/clear-day.gif",
 };
 
+function formatDate(dateString) {
+  const date = new Date(dateString);
+  return date.toLocaleDateString("en-US", {
+    weekday: "short",
+    month: "short",
+    day: "numeric",
+  });
+}
+
+function displayNext15Hours(weatherData, hoursDiv, tempunit) {
+  const now = new Date();
+  const currentHour = now.getHours();
+  let hoursDisplayed = 0;
+  const maxHours = 15;
+
+  // Start from today and potentially go to tomorrow
+  for (
+    let dayIndex = 0;
+    dayIndex < 2 && hoursDisplayed < maxHours;
+    dayIndex++
+  ) {
+    const dayData = weatherData.days[dayIndex];
+
+    for (const hourData of dayData.hours) {
+      if (hoursDisplayed >= maxHours) break;
+
+      const hourTime = parseInt(hourData.datetime.split(":")[0]); // Get hour from "20:00:00"
+
+      // For today, only show hours from current hour onwards
+      // For tomorrow, show all hours
+      if (dayIndex === 0 && hourTime < currentHour) {
+        continue;
+      }
+
+      // Create the hour element
+      const hour = document.createElement("div");
+      hour.classList.add("hour");
+
+      const time = document.createElement("p");
+      time.textContent = hourData.datetime.substring(0, 5); // "20:00"
+
+      const hourIcon = document.createElement("img");
+      hourIcon.classList.add("forecastIcon");
+      hourIcon.setAttribute("src", urls[hourData.icon]);
+
+      const hourTemp = document.createElement("h4");
+      hourTemp.textContent = `${Math.round(hourData.temp)}${tempunit}`;
+
+      hour.appendChild(time);
+      hour.appendChild(hourIcon);
+      hour.appendChild(hourTemp);
+
+      hoursDiv.appendChild(hour);
+
+      hoursDisplayed++;
+    }
+  }
+}
+
 let selectedTemperature = "metric"; // Default temperature unit: metric (Celsius)
 
 async function fetchWeatherData(cityName, temperature) {
@@ -29,6 +94,7 @@ async function fetchWeatherData(cityName, temperature) {
 
   try {
     const response = await fetch(apiUrl);
+    console.log(apiUrl);
     const data = await response.json();
 
     if (response.ok) {
@@ -45,6 +111,25 @@ temperatureRadios.forEach((radio) => {
     selectedTemperature = event.target.value === "C" ? "metric" : "us";
     // Now you can use the selectedTemperature value as needed.
     console.log("Selected temperature:", selectedTemperature);
+  });
+});
+
+temparatureRadiosHeader.forEach((radio) => {
+  radio.addEventListener("change", (event) => {
+    selectedTemperature = event.target.value === "C" ? "metric" : "us";
+    // Now you can use the selectedTemperature value as needed.
+    console.log("Selected temperature:", selectedTemperature);
+  });
+});
+
+headerForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const cityName2 = document.querySelector("#cityInput2").value;
+  fetchWeatherData(cityName2, selectedTemperature).then((data) => {
+    weatherData = data;
+    hoursDiv.innerHTML = ""; // Clear previous hours data
+    daysDiv.innerHTML = ""; // Clear previous days data
+    DisplayWeatherData(weatherData);
   });
 });
 
@@ -85,22 +170,74 @@ function DisplayWeatherData(weatherData) {
   const skyIcon = document.querySelector(".skyIcon");
   const temp = document.querySelector(".temp");
 
-  let unit = "°C";
+  let tempunit = "°C";
+  let windunit = "km/hr";
+  let precunit = "mm";
 
-
-  if(selectedTemperature=="metric")
-  {
-    unit = "°C";
-  }else
-  {
-    unit = "°F";
+  if (selectedTemperature == "metric") {
+    tempunit = "°C";
+    windunit = "km/hr";
+    precunit = "mm";
+  } else {
+    tempunit = "°F";
+    windunit = "mph";
+    precunit = "in";
   }
 
   Sky.textContent = weatherData.currentConditions["conditions"];
   skyIcon.setAttribute("src", urls[weatherData.currentConditions["icon"]]);
-  temp.textContent = `${weatherData.currentConditions["temp"]}${unit}`;
+  temp.textContent = `${weatherData.currentConditions["temp"]}${tempunit}`;
   // console.log("Icon from API:", weatherData.currentConditions["icon"]);
   // console.log("Mapped URL:", urls[weatherData.currentConditions["icon"]]);
 
+  const windSpeed = document.querySelector("#windSpeed");
+  windSpeed.textContent = `${weatherData.currentConditions["windspeed"]} ${windunit}`;
 
+  humidityValue = document.querySelector("#humidityValue");
+  humidityValue.textContent = `${weatherData.currentConditions["humidity"]}%`;
+
+  precValue = document.querySelector("#precValue");
+  precValue.textContent = `${weatherData.currentConditions["precip"]}${precunit}`;
+
+  feeltempValue = document.querySelector("#feeltempValue");
+  feeltempValue.textContent = `${weatherData.currentConditions["feelslike"]}${tempunit}`;
+
+  // Dispalying only the days left in the day
+  displayNext15Hours(weatherData, hoursDiv, tempunit);
+
+  //run a loop 15 times
+  for (let i = 1; i < 15; i++) {
+    let dayForecast = weatherData.days[i];
+    // console.log(formatDate(dayForecast["datetime"]));
+
+    const day = document.createElement("div");
+    day.classList.add("day");
+    const date = document.createElement("p");
+    date.textContent = formatDate(dayForecast["datetime"]);
+
+    const tempDetail = document.createElement("div");
+    tempDetail.classList.add("temp-detail");
+    const dayIcon = document.createElement("img");
+    dayIcon.classList.add("dayIcon");
+    dayIcon.setAttribute("src", urls[dayForecast["icon"]]);
+    const maxTemp = document.createElement("h4");
+    maxTemp.classList.add("max-temp");
+    maxTemp.textContent = `${dayForecast["tempmax"]} ${tempunit}`;
+    const minTemp = document.createElement("p");
+    minTemp.classList.add("min-temp");
+    minTemp.textContent = `${dayForecast["tempmin"]} ${tempunit}`;
+
+    tempDetail.appendChild(dayIcon);
+    tempDetail.appendChild(maxTemp);
+    tempDetail.appendChild(minTemp);
+
+    day.appendChild(date);
+    day.appendChild(tempDetail);
+    daysDiv.appendChild(day);
+    // console.log(
+    //   `${i + 1} ${weatherData.days[i].date} ${weatherData.days[i].conditions}`
+    // );
+  }
+
+  // console.log(weatherData.days[0])
 }

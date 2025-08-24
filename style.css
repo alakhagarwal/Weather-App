@@ -2,7 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "inter", sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .container {
@@ -134,16 +134,20 @@ button:active {
   justify-content: space-between;
   gap: 10px;
   padding: 20px;
+  font-family: "segoe ui", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .current-info {
-  max-width: 700px;
-  border: 2px solid black;
+  max-width: 750px;
   flex: 1;
-  padding: 15px;
-  /* transform: translateY(100%); */
+  padding: 25px;
+  transform: translateY(100%);
+  box-shadow: 0 0 14px rgba(0, 0, 0, 0.3);
+  background-color: #f8f9fa;
   transition: all 0.3s ease-in-out;
   opacity: 0;
+  align-self: flex-start;
+  border-radius: 15px;
 }
 
 .city-time {
@@ -193,15 +197,16 @@ button:active {
   border-bottom: 2px solid grey;
   display: flex;
   flex-direction: column;
-  gap: 15px;
-  padding-bottom: 10px;
+  gap: 25px;
+  padding-bottom: 20px;
 }
 
 .forecast {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 25px;
   margin-top: 10px;
+  padding: 15px;
 }
 
 .forecastIcon {
@@ -212,9 +217,10 @@ button:active {
   display: flex;
   overflow: auto;
   align-items: center;
-  gap: 2px;
+  gap: 13px;
   /* background-color: black; */
   padding-left: 10px;
+
 }
 
 .hour {
@@ -223,7 +229,8 @@ button:active {
   justify-content: center;
   align-items: center;
   gap: 5px;
-  padding: 4px;
+  padding: 12px;
+  font-size: 1.2rem;
 }
 
 .days-forecast {
@@ -234,6 +241,7 @@ button:active {
   /* transform: translateY(100%); */
   opacity: 0;
   transition: all 0.5s ease-in-out;
+  overflow: auto;
 }
 
 .forecast-heading {
@@ -279,6 +287,6 @@ button:active {
 }
 
 .show {
-  /* transform: translateY(0); */
+  transform: translateY(0);
   opacity: 1;
 }
