@@ -87,23 +87,48 @@ function displayNext15Hours(weatherData, hoursDiv, tempunit) {
 let selectedTemperature = "metric"; // Default temperature unit: metric (Celsius)
 
 async function fetchWeatherData(cityName, temperature) {
-  // Fetch weather data from an API (e.g., OpenWeatherMap) using the cityName and temperature.
-  // Replace "YOUR_API_KEY" with your actual API key.
   const apiKey = "4JB69F3K752WTPA5EVZN5XCMH";
   const apiUrl = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${cityName}/?key=${apiKey}&unitGroup=${temperature}&iconSet=icons1`;
 
   try {
-    const response = await fetch(apiUrl);
-    console.log(apiUrl);
-    const data = await response.json();
+    const response = await fetch(apiUrl); // if there is an error like network issue then the fetch will throw error and these will be caught by try catch
+
+    console.log(response);
+
+    let data; // bcoz if the response is not ok then data will be some text or html
 
     if (response.ok) {
+      data = await response.json(); // if response is ok then only we will parse it to json
+      console.log("Weather data fetched successfully:", data);
       return data;
     } else {
-      console.error("Error fetching weather data:", data.message);
+      // HTTP errors (wrong city, bad API key, etc.) // bcoz these dont through error by themsevles
+
+      let errorMessage;
+
+      switch (response.status) {
+        case 400:
+          errorMessage = "Invalid city name. Please check spelling.";
+          break;
+        case 401:
+          errorMessage = "Invalid API key.";
+          break;
+        case 429:
+          errorMessage = "Too many requests. Try again later.";
+          break;
+        case 404:
+          errorMessage = "City not found.";
+          break;
+        default:
+          errorMessage = `Server error (${response.status}). Try again later.`;
+      }
+
+      throw new Error(`Weather API Error: ${errorMessage}`);
     }
   } catch (error) {
-    alert("Error fetching weather data:", error);
+    // Network errors OR thrown HTTP errors
+    alert(error);
+    throw error; // Rethrow the error to be handled by the caller
   }
 }
 temperatureRadios.forEach((radio) => {
