@@ -12,6 +12,7 @@ const headerForm = document.querySelector("#weatherForm-header");
 const daysForecast = document.querySelector(".days-forecast");
 const daysDiv = document.querySelector(".forecast-days");
 const hoursDiv = document.querySelector(".hours-data");
+const loading = document.querySelector(".loading");
 
 urls = {
   snow: "assets/snow.gif",
@@ -85,10 +86,14 @@ function displayNext15Hours(weatherData, hoursDiv, tempunit) {
 let selectedTemperature = "metric";
 
 async function fetchWeatherData(cityName, temperature) {
+
   const apiKey = "4JB69F3K752WTPA5EVZN5XCMH";
   const apiUrl = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${cityName}/?key=${apiKey}&unitGroup=${temperature}&iconSet=icons1`;
 
   try {
+    loading.style.display = "block";
+    currInfo.classList.remove("show");
+    daysForecast.classList.remove("show");
     const response = await fetch(apiUrl); // if there is an error like network issue then the fetch will throw error and these will be caught by try catch
 
     console.log(response);
@@ -98,6 +103,7 @@ async function fetchWeatherData(cityName, temperature) {
     if (response.ok) {
       data = await response.json(); // if response is ok then only we will parse it to json
       console.log("Weather data fetched successfully:", data);
+      loading.style.display = "none";
       return data;
     } else {
       // HTTP errors (wrong city, bad API key, etc.) // bcoz these dont through error by themsevles
@@ -126,6 +132,7 @@ async function fetchWeatherData(cityName, temperature) {
   } catch (error) {
     // Network errors OR thrown HTTP errors
     alert(error);
+    loading.style.display = "none";
     throw error; // Rethrow the error to be handled by the caller
   }
 }
