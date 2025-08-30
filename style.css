@@ -5,11 +5,20 @@
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.loading {
-  max-width: 150px;
-  display: block;
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  position: relative;
   margin: 50px auto;
   display: none;
+}
+
+.loading {
+  display: block;
+  width: 100px;
+  height: 100px;
 }
 
 .container {

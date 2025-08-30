@@ -12,7 +12,7 @@ const headerForm = document.querySelector("#weatherForm-header");
 const daysForecast = document.querySelector(".days-forecast");
 const daysDiv = document.querySelector(".forecast-days");
 const hoursDiv = document.querySelector(".hours-data");
-const loading = document.querySelector(".loading");
+const loading = document.querySelector(".loading-container");
 
 urls = {
   snow: "assets/snow.gif",
@@ -91,7 +91,7 @@ async function fetchWeatherData(cityName, temperature) {
   const apiUrl = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${cityName}/?key=${apiKey}&unitGroup=${temperature}&iconSet=icons1`;
 
   try {
-    loading.style.display = "block";
+    loading.style.display = "flex";
     currInfo.classList.remove("show");
     daysForecast.classList.remove("show");
     const response = await fetch(apiUrl); // if there is an error like network issue then the fetch will throw error and these will be caught by try catch
