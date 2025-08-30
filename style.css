@@ -220,7 +220,6 @@ button:active {
   overflow: auto;
   align-items: center;
   gap: 13px;
-  /* background-color: black; */
   padding-left: 10px;
 }
 
@@ -314,23 +313,18 @@ button:active {
 }
 
 @media (max-width: 1024px) {
-  /* .current-info,
-  .days-forecast {
-    max-width: 100%;
-    width: 100%;
-  } */
   #weatherForm-header {
     max-width: 100%;
-    width: 100%;
+
+    justify-content: center;
+    gap: 10px;
+    align-items: center;
   }
-  /* .row1 {
-    flex-direction: column;
-    max-width: 100%;
-  } */
-  #cityInput,
-  #cityInput2 {
-    margin-bottom: 10px;
+
+  #weatherForm-header > button {
+    display: inline-block;
   }
+
   #weatherForm {
     margin-top: 10px;
   }
@@ -380,15 +374,18 @@ button:active {
     flex-direction: column;
   }
 
-  #cityInput{
-    width: 80vw;
+  header {
+    padding: 0px;
+    font-size: 0.8rem;
   }
 
-  /* .current-info,
-  .days-forecast {
-    max-width: 100%;
-    width: 100%;
-  } */
+  header > .container {
+    padding: 10px 10px;
+  }
+
+  #cityInput {
+    width: 80vw;
+  }
 
   .detailsRow1 {
     flex-direction: column;
@@ -398,6 +395,7 @@ button:active {
   #weatherForm-header {
     max-width: 100%;
     width: 100%;
+    flex-wrap: wrap;
   }
 
   .row1 {
@@ -405,8 +403,28 @@ button:active {
     max-width: 100%;
   }
 
-  .detailsRow2
-  {
+  .detailsRow2 {
     max-width: 90%;
+  }
+}
+
+@media (max-width: 468px) {
+  .current-info {
+    padding: 10px;
+  }
+
+  .city-time > h1 {
+    font-size: 1.5rem;
+  }
+
+  .detailsRow2 {
+    max-width: 98%;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .forecast-heading {
+    font-size: 1.5rem;
   }
 }

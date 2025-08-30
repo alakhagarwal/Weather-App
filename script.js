@@ -51,10 +51,8 @@ function displayNext15Hours(weatherData, hoursDiv, tempunit) {
     for (const hourData of dayData.hours) {
       if (hoursDisplayed >= maxHours) break;
 
-      const hourTime = parseInt(hourData.datetime.split(":")[0]); // Get hour from "20:00:00"
+      const hourTime = parseInt(hourData.datetime.split(":")[0]);
 
-      // For today, only show hours from current hour onwards
-      // For tomorrow, show all hours
       if (dayIndex === 0 && hourTime < currentHour) {
         continue;
       }
@@ -84,7 +82,7 @@ function displayNext15Hours(weatherData, hoursDiv, tempunit) {
   }
 }
 
-let selectedTemperature = "metric"; // Default temperature unit: metric (Celsius)
+let selectedTemperature = "metric";
 
 async function fetchWeatherData(cityName, temperature) {
   const apiKey = "4JB69F3K752WTPA5EVZN5XCMH";
@@ -134,7 +132,7 @@ async function fetchWeatherData(cityName, temperature) {
 temperatureRadios.forEach((radio) => {
   radio.addEventListener("change", (event) => {
     selectedTemperature = event.target.value === "C" ? "metric" : "us";
-    // Now you can use the selectedTemperature value as needed.
+
     console.log("Selected temperature:", selectedTemperature);
   });
 });
@@ -142,7 +140,7 @@ temperatureRadios.forEach((radio) => {
 temparatureRadiosHeader.forEach((radio) => {
   radio.addEventListener("change", (event) => {
     selectedTemperature = event.target.value === "C" ? "metric" : "us";
-    // Now you can use the selectedTemperature value as needed.
+
     console.log("Selected temperature:", selectedTemperature);
   });
 });
@@ -152,8 +150,8 @@ headerForm.addEventListener("submit", (event) => {
   const cityName2 = document.querySelector("#cityInput2").value;
   fetchWeatherData(cityName2, selectedTemperature).then((data) => {
     weatherData = data;
-    hoursDiv.innerHTML = ""; // Clear previous hours data
-    daysDiv.innerHTML = ""; // Clear previous days data
+    hoursDiv.innerHTML = "";
+    daysDiv.innerHTML = "";
     DisplayWeatherData(weatherData);
   });
 });
@@ -184,12 +182,11 @@ function DisplayWeatherData(weatherData) {
   const currDate = new Date();
   const options = {
     weekday: "long",
-    year: "numeric",
     month: "long",
     day: "numeric",
   };
   const formattedDate = currDate.toLocaleDateString("en-US", options);
-  currTime.textContent = `${formattedDate}, ${currDate.toLocaleTimeString()}`;
+  currTime.textContent = formattedDate;
 
   const Sky = document.querySelector(".sky");
   const skyIcon = document.querySelector(".skyIcon");
@@ -212,8 +209,6 @@ function DisplayWeatherData(weatherData) {
   Sky.textContent = weatherData.currentConditions["conditions"];
   skyIcon.setAttribute("src", urls[weatherData.currentConditions["icon"]]);
   temp.textContent = `${weatherData.currentConditions["temp"]}${tempunit}`;
-  // console.log("Icon from API:", weatherData.currentConditions["icon"]);
-  // console.log("Mapped URL:", urls[weatherData.currentConditions["icon"]]);
 
   const windSpeed = document.querySelector("#windSpeed");
   windSpeed.textContent = `${weatherData.currentConditions["windspeed"]} ${windunit}`;
@@ -230,10 +225,8 @@ function DisplayWeatherData(weatherData) {
   // Dispalying only the days left in the day
   displayNext15Hours(weatherData, hoursDiv, tempunit);
 
-  //run a loop 15 times
   for (let i = 1; i < 15; i++) {
     let dayForecast = weatherData.days[i];
-    // console.log(formatDate(dayForecast["datetime"]));
 
     const day = document.createElement("div");
     day.classList.add("day");
@@ -259,10 +252,5 @@ function DisplayWeatherData(weatherData) {
     day.appendChild(date);
     day.appendChild(tempDetail);
     daysDiv.appendChild(day);
-    // console.log(
-    //   `${i + 1} ${weatherData.days[i].date} ${weatherData.days[i].conditions}`
-    // );
   }
-
-  // console.log(weatherData.days[0])
 }
