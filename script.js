@@ -15,11 +15,11 @@ const hoursDiv = document.querySelector(".hours-data");
 const loading = document.querySelector(".loading-container");
 
 urls = {
-  snow: "assets/snow.gif",
-  rain: "assets/rain.gif",
-  fog: "assets/fog.gif",
-  wind: "assets/wind.gif",
-  cloudy: "assets/cloudy.gif",
+  "snow": "assets/snow.gif",
+  "rain": "assets/rain.gif",
+  "fog": "assets/fog.gif",
+  "wind": "assets/wind.gif",
+  "cloudy": "assets/cloudy.gif",
   "partly-cloudy-day": "assets/partly-cloudy-day.gif",
   "partly-cloudy-night": "assets/partly-cloudy-night.gif",
   "clear-night": "assets/clear-night.gif",
