@@ -232,7 +232,7 @@ function DisplayWeatherData(weatherData) {
   // Dispalying only the days left in the day
   displayNext15Hours(weatherData, hoursDiv, tempunit);
 
-  for (let i = 1; i < 15; i++) {
+  for (let i = 1; i <= 15; i++) {
     let dayForecast = weatherData.days[i];
 
     const day = document.createElement("div");
